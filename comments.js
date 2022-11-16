@@ -44,3 +44,78 @@ for (const detail of details) {
 
 const posts = await downloadPosts()
 console.log(posts)
+
+
+function newLine(p) {
+	p = p.replace(/(?:\n)/g, "<br>");
+	return p;
+}
+
+async function fillElements(obj) {
+	const objects = obj;
+	for (const objective of objects) {
+		
+    
+    const main = document.querySelector("main");
+    const article = document.createElement("article");
+    article.setAttribute("data-post-id", objective.id);
+    main.appendChild(article);
+		
+    
+    const h2 = document.createElement("h2");
+		h2.textContent = objective.title;
+		article.appendChild(h2);
+		
+    
+		const span = document.createElement("span");
+    span.setAttribute("class", "author");
+		span.textContent = await getUserName(objective.userId);
+		
+
+    const aside = document.createElement("aside");
+    aside.textContent = `by `;
+		aside.appendChild(span);
+		article.appendChild(aside);
+
+
+    const p = document.createElement("p");
+		let myBody = objective.body;
+		p.innerHTML = newLine(myBody);
+		article.appendChild(p);
+
+    const details = document.createElement("details");
+		main.appendChild(details);
+		
+
+    const summ = document.createElement("summary");
+		summ.textContent = "See what our readers had to say...";
+		details.appendChild(summ);
+	
+
+    const section = document.createElement("section");
+		details.appendChild(section);
+		
+
+    const myHeader = document.createElement("header");
+		section.appendChild(myHeader);
+		
+
+    const h3 = document.createElement("h3");
+		h3.textContent = "Comments";
+		myHeader.appendChild(h3);
+
+
+		details.addEventListener("toggle", async (event) => {
+			if (details.open) {
+				const asides = details.getElementsByTagName("aside");
+				const commentsDownloaded = asides.length > 0;
+				if (!commentsDownloaded) {
+					const id = getArticleId(details);
+					const comments = await downloadComments(id);
+					console.log(comments);
+				}
+			}
+		});
+	}
+}
+fillElements(posts);
