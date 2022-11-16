@@ -79,8 +79,8 @@ async function fillElements(obj) {
 
 
     const p = document.createElement("p");
-		let myBody = objective.body;
-		p.innerHTML = newLine(myBody);
+		let body = objective.body;
+		p.innerHTML = newLine(body);
 		article.appendChild(p);
 
     const details = document.createElement("details");
@@ -96,13 +96,13 @@ async function fillElements(obj) {
 		details.appendChild(section);
 		
 
-    const myHeader = document.createElement("header");
-		section.appendChild(myHeader);
+    const header = document.createElement("header");
+		section.appendChild(header);
 		
 
     const h3 = document.createElement("h3");
 		h3.textContent = "Comments";
-		myHeader.appendChild(h3);
+		header.appendChild(h3);
 
 
 		details.addEventListener("toggle", async (event) => {
