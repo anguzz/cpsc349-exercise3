@@ -42,7 +42,7 @@ for (const detail of details) {
   })
 }
 
-const posts = await downloadPosts()
+const posts = await downloadPosts(2)
 console.log(posts)
 
 
@@ -113,6 +113,25 @@ async function fillElements(obj) {
 					const id = getArticleId(details);
 					const comments = await downloadComments(id);
 					console.log(comments);
+
+
+          for (const comment of comments) {
+						const asideComment = document.createElement("aside");
+						mySec.appendChild(asideComment);
+
+						const description = document.createElement("p");
+						console.log(comment.body);
+						description.textContent = comment.body;
+						asideComment.appendChild(description);
+
+						const secondP = document.createElement("p");
+						const small = document.createElement("small");
+
+						small.textContent = comment.name;
+						secondP.appendChild(small);
+						asideComment.appendChild(secondP);
+            
+					}
 				}
 			}
 		});
