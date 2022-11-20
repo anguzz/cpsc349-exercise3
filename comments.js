@@ -117,7 +117,7 @@ async function fillElements(obj) {
 
           for (const comment of comments) {
 						const asideComment = document.createElement("aside");
-						mySec.appendChild(asideComment);
+						section.appendChild(asideComment);
 
 						const description = document.createElement("p");
 						console.log(comment.body);
